@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Ap</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div
+        class="
+          container-fluid
+          is-flex is-justify-content-space-between is-align-items-center
+        "
+      >
+        <h1 class="is-size-3 ml-4">City Weather</h1>
+      </div>
+    </header>
+    <main>
+      <section
+        class="
+          hero
+          is-primary is-flex is-justify-content-center is-align-items-center
+        "
+      >
+        <div class="hero-body has-text-centered">
+          <div class="text-center pt-4">
+            <input
+              class="input"
+              id="city"
+              type="text"
+              placeholder="Input City"
+            />
+            <button class="btn btn-danger" id="fetch-button">Search</button>
+          </div>
+        </div>
+      </section>
+      <table class="card-body table mx-auto my-4">
+        <th>
+          <p class="my-4">Results</p>
+        </th>
+        <tbody id="repo-table" class="mx-auto text-center"></tbody>
+      </table>
+      <div class="columns m-3 is-variable is-2" id="today">
+        <div class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-1" id="cityName">City</p>
+                  <p class="title is-4" id="dateT">Date</p>
+                  <p class="is-4" id="tempT">Temp:</p>
+                  <p class="is-4" id="windT">Wind:</p>
+                  <p class="is-4" id="humidT">Humidity:</p>
+                  <p class="is-4" id="UVIndexT">UV Index:</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns m-3 is-variable is-2" id="five-day">
+        <!-- Shift+Alt+Down  section below to see all cards-->
+        <div class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="is-4" id="date">Date</p>
+                  <p class="is-4" id="icon">Icon</p>
+                  <p class="is-4" id="temp">Temp:</p>
+                  <p class="is-4" id="wind">Wind:</p>
+                  <p class="is-4" id="humid">Humidity:</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
