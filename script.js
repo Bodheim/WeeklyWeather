@@ -39,6 +39,7 @@ fetchButton.addEventListener('click', function () {
 
       current.empty();
       var cityName = $('<h1>');
+      var dateT = $('<h2>');
       var iconT = $('<img>');
       var tempT = $('<h2>');
       var windT = $('<h2>');
@@ -46,11 +47,14 @@ fetchButton.addEventListener('click', function () {
       var iconC = data.weather[0].icon;
       var iconU = 'http://openweathermap.org/img/w/' + iconC + '.png';
       iconT.attr('src', iconU);
-      cityName.text(data.name + ' ' + new Date().toLocaleDateString('en-US'));
+
+      cityName.text(data.name);
+      dateT.text(new Date().toLocaleDateString('en-US'));
       tempT.text('Temp: ' + data.main.temp + '°F');
       windT.text('Wind: ' + data.wind.speed + ' MPH');
       humidT.text('Humidity: ' + data.main.humidity + '%');
       current.append(cityName);
+      current.append(dateT);
       current.append(iconT);
       current.append(tempT);
       current.append(windT);
@@ -65,7 +69,7 @@ fetchButton.addEventListener('click', function () {
     '&units=imperial&appid=' +
     apiKey;
 
-  fetch(queryURL)
+  fetch(forecastURL)
     .then((response) => response.json())
     .then(function (data) {
       cityLatVar = data.city.coord.lat;
