@@ -11,18 +11,32 @@
 //var city = document.getElementById('city');\
 //use so selecting fetch button will pull api request
 var fetchButton = document.getElementById('fetch-button');
+// var outPut = document.getElementById('output');
+
 var apiKey = 'e25de68d1a28278a73de703c2c9a0353';
 var current = $('.media-contentT');
 var cityLatVar;
 var cityLongVar;
 
-var forecast = $('.media-content');
-var userCitiesArray = [];
+var forecast = $('.column');
+
+var searchedCities = [];
 var savedCitiesUl = $('.cities');
 
+//where key is numbers and value is city names
+
+// // Store data
+// var someData = 'The data that I want to store for later.';
+
+cOut = [];
 fetchButton.addEventListener('click', function () {
+  event.preventDefault();
   //use whatever is input as the city name
   var city = $('.input').val();
+  cOut.push(city);
+  localStorage.setItem('city', cOut);
+  // var outPut = localStorage.getItem('city');
+  document.getElementById('output').innerHTML = localStorage.getItem('city');
 
   //pulling info for current weather
   var queryURL =
@@ -30,7 +44,7 @@ fetchButton.addEventListener('click', function () {
     city +
     '&appid=' +
     apiKey;
-
+  event.preventDefault();
   fetch(queryURL)
     .then((response) => response.json())
     .then(function (data) {
@@ -88,6 +102,7 @@ fetchButton.addEventListener('click', function () {
           var temp = $('<h2>');
           var wind = $('<h2>');
           var humid = $('<h2>');
+          card.addClass('card');
           date.text(dateVar);
           date.addClass('is-size-5');
           var iconCode = data.list[i].weather[0].icon;
@@ -108,53 +123,38 @@ fetchButton.addEventListener('click', function () {
       getUVI();
     });
 });
-let dateT = new Date().toLocaleDateString();
-$('#dateT').text(dateT);
 
-// var nextDays = [];
-// //itterate to pull next 5 days
-// for (i = 1; i < 6; i++) {
-//   const nextDay = new Date(dateT);
-//   nextDay.setDate(nextDay.getDate() + i);
-//   var nextDays = nextDay.toLocaleDateString();
-//   $('#date').text(nextDays);
-//   console.log(nextDays);
-// }
+function getUVI() {
+  var uviURL =
+    'https://api.openweathermap.org/data/2.5/onecall?lat=' +
+    cityLatVar +
+    '&lon=' +
+    cityLongVar +
+    '&exclude={part}&appid=' +
+    apiKey;
+  $.ajax({
+    url: uviURL,
+    method: 'GET',
+  }).then(function (data) {
+    var indexUVI = data.daily[0].uvi;
+    if (indexUVI >= 7) {
+      current.append(
+        `<button type="button" class="button is-danger">UV Index: ${indexUVI}</button>`
+      );
+    } else if (indexUVI < 7 && indexUVI >= 3) {
+      current.append(
+        `<button type="button" class="button is-warning uviBtn">UV Index: ${indexUVI}</button>`
+      );
+    } else {
+      current.append(
+        `<button type="button" class="button is-success uviBtn">UV Index: ${indexUVI}</button>`
+      );
+    }
+  });
+}
 
-// const today = new Date()
-// const tomorrow = new Date(today)
-// tomorrow.setDate(tomorrow.getDate() + 1)
+// // Get data
+// var data = localStorage.getItem('myDataKey');
 
-//card variables
-
-// var tempT = document.getElementById('tempT');
-// var windT = document.getElementById('windT');
-// var humidT = document.getElementById('humidT');
-// var UVIndexT = document.getElementById('UVIndexT');
-
-// var icon = document.getElementById('icon'); weather.icon
-// var temp = document.getElementById('temp'); main.temp
-// var wind = document.getElementById('wind'); wind.speed & wind.deg
-// var humid = document.getElementById('humid'); main.humidity
-
-//AS A traveler
-// I WANT to see the weather outlook for multiple cities
-// SO THAT I can plan a trip accordingly
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions
-//for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon
-//representation of weather conditions, the temperature, the humidity,
-//the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the
-//conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date,
-//an icon representation of weather conditions, the temperature,
-//the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions
-//for that city
+// // Remove data
+// localStorage.removeItem('myDatakey');
