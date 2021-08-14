@@ -59,7 +59,7 @@ fetchButton.addEventListener('click', function () {
       var windT = $('<h2>');
       var humidT = $('<h2>');
       var iconC = data.weather[0].icon;
-      var iconU = 'http://openweathermap.org/img/w/' + iconC + '.png';
+      var iconU = 'https://openweathermap.org/img/w/' + iconC + '.png';
       iconT.attr('src', iconU);
 
       cityName.text(data.name);
@@ -106,7 +106,7 @@ fetchButton.addEventListener('click', function () {
           date.text(dateVar);
           date.addClass('is-size-5');
           var iconCode = data.list[i].weather[0].icon;
-          var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png';
+          var iconUrl = 'https://openweathermap.org/img/w/' + iconCode + '.png';
           icon.attr('src', iconUrl);
           temp.text('Temp: ' + data.list[i].main.temp + '°F');
           wind.text('Wind: ' + data.list[i].wind.speed + ' MPH');
