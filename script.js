@@ -40,7 +40,7 @@ fetchButton.addEventListener('click', function () {
 
   //pulling info for current weather
   var queryURL =
-    'http://api.openweathermap.org/data/2.5/weather?q=' +
+    'https://api.openweathermap.org/data/2.5/weather?q=' +
     city +
     '&appid=' +
     apiKey;
